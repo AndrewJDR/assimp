@@ -35,21 +35,27 @@ jobs:
     
     - name: configure and build
       uses: lukka/run-cmake@v2
+      env:
+        DXSDK_DIR: '${{ github.workspace }}/deps/d3d'
+        DIRECTX_HOME: ${GITHUB_WORKSPACE}/deps/d3d
+        DIRECTX_ROOT: '${GITHUB_WORKSPACE}/deps/d3d'
+        DIRECTX_BASE: "${{ github.workspace }}/deps/d3d"
       with:
         cmakeListsOrSettingsJson: CMakeListsTxtAdvanced
         cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
-        cmakeAppendedArgs: '-GNinja -DCMAKE_BUILD_TYPE=Release'
+        cmakeAppendedArgs: '-GNinja -DCMAKE_BUILD_TYPE=Release -DASSIMP_BUILD_ASSIMP_TOOLS=1 -DASSIMP_BUILD_ASSIMP_VIEW=1 -DDirectX_INCLUDE_DIR="${{ github.workspace }}/deps/d3d/Include" -DDirectX_D3DX9_LIBRARY="${{ github.workspace }}/deps/d3d/Lib/x64/d3dx9.lib"'
         buildWithCMakeArgs: '-- -v'
         buildDirectory: '${{ github.workspace }}/build/'
         
     - name: test
       run: cd build/bin && ./unit
       shell: bash
+
     - name: list-all
-      run: ls -lR
+      run: ls -lR build
       shell: bash
+
     - uses: actions/upload-artifact@v2
       with:
         name: assimp-exes
-        path: Build.md
-
+        path: build/bin

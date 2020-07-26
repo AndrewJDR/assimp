@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <time.h>
 
 // default movement speed
-#define MOVE_SPEED 0.3f
+#define MOVE_SPEED 0.03f
 
 #include "AssetHelper.h"
 #include "Background.h"

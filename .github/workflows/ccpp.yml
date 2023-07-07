@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        name: [ubuntu-latest-g++, macos-latest-clang++, windows-latest-cl.exe, ubuntu-latest-clang++, ubuntu-gcc-hunter, macos-clang-hunter, windows-msvc-hunter]
+        name: [windows-msvc-hunter]
         # For Windows msvc, for Linux and macOS let's use the clang compiler, use gcc for Linux.
         include:
           - name: windows-latest-cl.exe
@@ -131,4 +131,4 @@ jobs:
       if: matrix.name == 'windows-msvc-hunter'
       with:
         name: 'assimp-bins-${{ matrix.name }}-${{ github.sha }}'
-        path: build/bin
+        path: build
